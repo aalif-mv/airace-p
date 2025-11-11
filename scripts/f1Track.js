@@ -1,8 +1,13 @@
 class F1Track {
-    constructor(canvas, trackData, scaleFactor = 20) {
+    constructor(canvas, trackData, scaleFactor = 20, image) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.scaleFactor = scaleFactor;
+
+        this.bg_image_source = image;
+
+        const grassImg = new Image();
+        grassImg.src = this.bg_image_source;
 
         // Scale CSV data
         this.trackData = trackData.map(pt => [
@@ -166,9 +171,54 @@ class F1Track {
         ctx.setLineDash([]);
     }
 
+    drawBackgroundGrid(buffer = 1) {
+        const ctx = this.ctx;
+
+        if (!this._grassImg) {
+            this._grassImg = new Image();
+            this._grassImg.src = this.bg_image_source;
+            return;
+        }
+
+        const cam = this.camera;
+        const zoom = cam.zoom;
+        const scale = 1;
+
+        // base tile size in world units
+        const worldTileSize = (this._grassImg.width / scale);
+
+        // find top-left visible world coordinate
+        const halfW = ctx.canvas.width / (2 * zoom * scale);
+        const halfH = ctx.canvas.height / (2 * zoom * scale);
+        const startX = cam.x - halfW;
+        const startY = cam.y - halfH;
+
+        // number of tiles needed
+        const tilesX = Math.ceil(ctx.canvas.width / (worldTileSize * zoom * scale)) + 2 * buffer;
+        const tilesY = Math.ceil(ctx.canvas.height / (worldTileSize * zoom * scale)) + 2 * buffer;
+
+        ctx.save();
+
+        for (let i = -buffer; i < tilesX - buffer; i++) {
+            for (let j = -buffer; j < tilesY - buffer; j++) {
+                const worldX = Math.floor((startX / worldTileSize) + i) * worldTileSize;
+                const worldY = Math.floor((startY / worldTileSize) + j) * worldTileSize;
+                const [cx, cy] = cam.worldToCanvas(worldX, worldY, scale);
+
+                const drawSize = this._grassImg.width * scale * zoom;
+                ctx.drawImage(this._grassImg, cx, cy, drawSize, drawSize);
+            }
+        }
+
+        ctx.restore();
+    }
+
+
+
     drawTrack(blur = 0) {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawBackgroundGrid();
         const { leftPts, rightPts } = this.getCanvasBoundaries();
 
         ctx.beginPath();

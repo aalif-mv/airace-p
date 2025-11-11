@@ -140,7 +140,7 @@ async function initTrack(cvsSource) {
     const scaleFactorGlobal = 20;
     const data = await loadCSV(cvsSource);
 
-    f1track = new F1Track(canvas, data, scaleFactorGlobal);
+    f1track = new F1Track(canvas, data, scaleFactorGlobal, '/images/grass-texture-2x-vintage.png');
     f1track.camera.zoom = 0.8;
 
     const [firstPt, nextPt] = f1track.trackData;
@@ -222,6 +222,7 @@ canvas.addEventListener('wheel', e => {
     f1track.camera.zoom *= (1 + zoomAmount);
     f1track.camera.zoom = Math.max(0.1, Math.min(15, f1track.camera.zoom));
 });
+
 
 // --- Game Loop ---
 let lastTime = performance.now();
