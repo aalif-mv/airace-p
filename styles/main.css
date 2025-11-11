@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(239, 239, 239);
+    margin: 0;
+    user-select: none;
+}
+canvas {
+    background-color: rgb(136, 136, 136);
+    margin: 4px;
+}
+.nav {
+    /* width: 800px; */
+    display: flex;
+    justify-content: space-around;
+    padding: 4px;
+}
+#csvFile {
+    padding: 6px;
+    font-size: 12px;
+    background-color: rgb(142, 142, 142);
+    border: none;
+}
+.topNavLabels {
+    color: #000000;
+    font-family: monospace;
+    font-size: 16px;
+}
+.hidden {
+    display: none !important;
+}

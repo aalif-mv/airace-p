@@ -1,0 +1,22 @@
+body {
+    /* overflow-y: hidden; */
+    font-size: 16px;
+}
+
+.side_bar {
+    height: 96vh;
+    width: 150px;
+    min-width: 150px;
+}
+
+.heading3 {
+    font-size: 14px;
+}
+
+.topNavLabels {
+    font-size: 12px;
+}
+
+.list_selector li {
+    font-size: 12px;
+}
