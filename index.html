@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/side_bar.css">
+    <!-- Mobile (portrait) -->
+    <link rel="stylesheet" href="styles/mobile.css" media="screen and (max-width: 768px) and (orientation: portrait)">
+
+    <!-- Landscape -->
+    <link rel="stylesheet" href="styles/landscape.css" media="screen and (orientation: landscape) and (max-height: 450px)">
+
+</head>
+<body>
+    <!-- side bar -->
+    <div class="side_bar">
+        <div style="text-align: center;">
+            <div id="mode_label" class="heading3">Mode: 2</div>
+            <input class="slider" value="2" type="range" name="modeSelector" id="modeSelector" min="1" max="3" onchange="changeMode(this.value)">
+            <div style="font-size: 8px; padding: 6px; color: blue;">(NOTE) Mode 1 is for training Ai. Mode 2 is for play testing. Mode 3 is for Ai testing.</div>
+            <hr>
+            <button onclick="fullScreen()">Full Screen</button>
+            <button onclick="fullScreenCanvas()">Full Screen Canvas</button>
+            <hr>
+        </div>
+        <div id="ai_test">
+            <div class="heading3">Trained AI Models</div>
+            <ul class="list_selector" id="brain_list">
+                <!-- auto generated -->
+            </ul>
+        </div>
+        <div id="ai_train" class="hidden">
+            <div class="heading3">Save Generation</div>
+            <button>Save</button>
+            <button>SaveDB</button>
+            <button>Download</button>
+
+            <div class="heading3">Load Generation</div>
+            <button>Load</button>
+            <button>LoadDB</button>
+            <input type="file" name="gen_input" id="gen_input">
+        </div>
+        <div id="player_test" class="hidden">
+            <div class="heading3">Player</div>
+            <button>Reset</button>
+        </div>
+    </div>
+
+    <div>
+        <div class="nav" id="canvasNav">
+            <div id="fpsCounter"  class="topNavLabels" >FPS: 0</div>
+            <div id="timeCounter" class="topNavLabels" >Time: 0</div>
+            <div id="trackLabel"  class="topNavLabels" >Track: </div>
+            <div id="genCounter"  class="topNavLabels hidden" >Generation: 0</div>
+            <div id="trainedAI"   class="topNavLabels hidden" >Trained AI: </div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+    </div>
+
+    <!-- side bar -->
+    <div class="side_bar">
+        <input type="file" id="csvFile" accept=".csv">
+        <ul id="track_list" class="list_selector">
+            <!-- auto generated -->
+        </ul>
+    </div>
+
+    <script src="https://wagenaartje.github.io/neataptic/cdn/1.4.7/neataptic.js"></script>
+
+    <script src="./scripts/constants.js"></script>
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/brains.js"></script>
+    <script src="./scripts/csvLoader.js"></script>
+    <script src="./scripts/camera.js"></script>
+    <script src="./scripts/f1Track.js"></script>
+    <script src="./scripts/car.js"></script>
+    <script src="./scripts/AISaver.js"></script>
+    <script src="./scripts/AIManager.js"></script>
+    <script src="./scripts/AIRacer.js"></script>
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
